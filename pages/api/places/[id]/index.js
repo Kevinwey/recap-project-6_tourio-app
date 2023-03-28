@@ -17,5 +17,10 @@ export default async function handler(request, response) {
       $set: request.body,
     });
     response.status(200).json({ status: "success!" });
+  } else if (request.method === "DELETE") {
+    await Place.findByIdAndDelete(id);
+    response.status(200).json({ status: "Amazing success" });
+  } else {
+    response.status(405).json({ Message: "Methods Not Allowing" });
   }
 }

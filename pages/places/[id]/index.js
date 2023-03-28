@@ -30,7 +30,7 @@ const StyledLocationLink = styled(StyledLink)`
 
 export default function DetailsPage() {
   const router = useRouter();
-  const { isReady } = router;
+  const { isReady, push } = router;
   const { id } = router.query;
 
   const {
@@ -41,8 +41,11 @@ export default function DetailsPage() {
 
   if (!isReady || isLoading || error) return <h2>Loading...</h2>;
 
-  function deletePlace() {
-    console.log("deleted?");
+  async function deletePlace() {
+    const response = await fetch(`/api/places/${id}`, {
+      method: "DELETE",
+    });
+    push("/");
   }
 
   return (
